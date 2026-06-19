@@ -311,23 +311,20 @@
   .balloon-svg { transition: transform 0.15s; }
   .balloon-wrap:hover:not(.popped) .balloon-svg { transform: scale(1.06); }
 
-  /* Pop burst */
-  .pop-burst {
-    position: absolute; top: 30%; left: 50%;
-    transform: translate(-50%,-50%) scale(0);
-    font-size: 2rem; pointer-events: none;
-    transition: transform 0.25s ease-out, opacity 0.4s 0.2s;
-    opacity: 0;
+  /* Pop reveal — large word, no emoji */
+  .pop-word {
+    position: absolute; top: 42%; left: 50%;
+    transform: translate(-50%,-50%) scale(0.3);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600; font-style: italic;
+    font-size: clamp(1.9rem, 8vw, 2.7rem);
+    color: var(--gold-deep);
+    line-height: 1; white-space: nowrap;
+    pointer-events: none; opacity: 0;
+    transition: transform 0.45s cubic-bezier(.22,1.4,.4,1), opacity 0.4s 0.15s;
   }
-  .balloon-wrap.popped .pop-burst { transform: translate(-50%,-50%) scale(1.6); opacity: 1; }
+  .balloon-wrap.popped .pop-word { transform: translate(-50%,-50%) scale(1); opacity: 1; }
   .balloon-wrap.popped .balloon-svg { opacity: 0; transform: scale(0.2); transition: all 0.25s ease-in; }
-
-  .balloon-reveal {
-    margin-top: 0.5rem; font-family: 'Cormorant Garamond', serif;
-    font-size: 0.82rem; font-style: italic; color: var(--ink-muted);
-    opacity: 0; transition: opacity 0.5s 0.3s; min-height: 1.2em;
-  }
-  .balloon-wrap.popped .balloon-reveal { opacity: 1; }
 
   .balloon-counter {
     font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -601,8 +598,7 @@
           <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#88C9A8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           <path d="M46,122 Q50,126 54,122" stroke="#88C9A8" stroke-width="1.2" fill="none"/>
         </svg>
-        <div class="pop-burst">💚</div>
-        <div class="balloon-reveal" id="r1"></div>
+        <div class="pop-word" id="r1"></div>
       </div>
 
       <!-- Balloon 2: Lavender → "are" -->
@@ -622,8 +618,7 @@
           <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#A898D8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           <path d="M46,122 Q50,126 54,122" stroke="#A898D8" stroke-width="1.2" fill="none"/>
         </svg>
-        <div class="pop-burst">💜</div>
-        <div class="balloon-reveal" id="r2"></div>
+        <div class="pop-word" id="r2"></div>
       </div>
 
       <!-- Balloon 3: Blush pink → "my" -->
@@ -643,8 +638,7 @@
           <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#F0A0B8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           <path d="M46,122 Q50,126 54,122" stroke="#F0A0B8" stroke-width="1.2" fill="none"/>
         </svg>
-        <div class="pop-burst">🌸</div>
-        <div class="balloon-reveal" id="r3"></div>
+        <div class="pop-word" id="r3"></div>
       </div>
 
       <!-- Balloon 4: Sky blue → "hero" -->
@@ -664,8 +658,7 @@
           <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#88C0E8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           <path d="M46,122 Q50,126 54,122" stroke="#88C0E8" stroke-width="1.2" fill="none"/>
         </svg>
-        <div class="pop-burst">💙</div>
-        <div class="balloon-reveal" id="r4"></div>
+        <div class="pop-word" id="r4"></div>
       </div>
     </div>
 
@@ -676,7 +669,7 @@
     </div>
 
     <div style="text-align:center;margin-top:2rem;">
-      <button class="nav-btn" onclick="showPage(4,document.querySelectorAll('nav button')[3])">Send a Gift →</button>
+      <button class="nav-btn" id="sendGiftBtn" onclick="showPage(4,document.querySelectorAll('nav button')[3])">Send a Gift →</button>
     </div>
   </div>
 </section>
@@ -767,7 +760,9 @@ function popBalloon(id, idx) {
 }
 
 /* ── Page switching ── */
+let isRecipientView = false;
 function showPage(num, btn) {
+  if (isRecipientView && num === 4) return; // recipients never see the payment page
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('page' + num).classList.add('active');
@@ -890,6 +885,7 @@ function checkGiftMode() {
   const params = new URLSearchParams(window.location.search);
   const gift = params.get('gift');
   if (gift || window.location.hash === '#gift') {
+    isRecipientView = true;
     try {
       const note = decodeURIComponent(escape(atob(gift || '')));
       showGiftMode(note);
@@ -911,6 +907,14 @@ function enterGiftMode() {
   document.getElementById('mainNav').style.display = '';
   document.getElementById('ornamentEl').style.display = '';
   document.querySelectorAll('.page').forEach(p => p.style.display = '');
+  if (isRecipientView) {
+    const navBtns = document.querySelectorAll('nav button');
+    if (navBtns[3]) navBtns[3].style.display = 'none'; // hide "Your Gift" / payment tab
+    const page4 = document.getElementById('page4');
+    if (page4) page4.style.display = 'none'; // payment page never reachable
+    const sendBtn = document.getElementById('sendGiftBtn');
+    if (sendBtn) sendBtn.style.display = 'none'; // no path that leads to it
+  }
   showPage(1, document.querySelector('nav button'));
 }
 
