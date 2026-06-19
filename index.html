@@ -839,7 +839,7 @@ function initiatePayment() {
   const note = document.getElementById('customNote').value.trim() || "Happy Father's Day, Dad! I love you so much.";
   if (finalPrice === 0) { openSuccessModal(note); return; }
   const options = {
-    key: 'rzp_test_YourKeyHere', // ← Replace with your Razorpay key
+    key: 'rzp_live_Sz9gct8RO5E1jB', // ← Replace with your Razorpay key
     amount: finalPrice * 100,
     currency: 'INR',
     name: "Father's Day Gift",
