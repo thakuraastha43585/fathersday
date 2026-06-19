@@ -471,8 +471,8 @@
 <nav id="mainNav">
   <button class="active" onclick="showPage(1,this)">The Cake</button>
   <button onclick="showPage(2,this)">Wishes</button>
-  <button onclick="showPage(3,this)">Your Gift</button>
-  <button onclick="showPage(4,this)">Surprise 🎈</button>
+  <button onclick="showPage(3,this)">Surprise 🎈</button>
+  <button onclick="showPage(4,this)">Your Gift</button>
 </nav>
 
 <!-- ════════════ PAGE 1: CAKE ════════════ -->
@@ -569,12 +569,120 @@
     </ul>
   </div>
   <div style="text-align:center;padding-bottom:3rem;">
-    <button class="nav-btn" onclick="showPage(3,document.querySelectorAll('nav button')[2])">Send a Gift →</button>
+    <button class="nav-btn" onclick="showPage(3,document.querySelectorAll('nav button')[2])">A Little Surprise →</button>
   </div>
 </section>
 
-<!-- ════════════ PAGE 3: NOTE + PAYMENT ════════════ -->
+<!-- ════════════ PAGE 3: BALLOON POP ════════════ -->
 <section id="page3" class="page">
+  <div class="balloon-stage">
+    <div class="balloon-title-row">
+      <p>Pop all 4 balloons</p>
+      <div class="divider" style="margin:1rem auto;"></div>
+    </div>
+
+    <p class="balloon-counter" id="balloonCounter">0 / 4 popped</p>
+
+    <div class="balloon-grid">
+      <!-- Balloon 1: Mint green → "You" -->
+      <div class="balloon-wrap" id="b1" onclick="popBalloon('b1',0)">
+        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
+          <defs>
+            <radialGradient id="g1" cx="35%" cy="30%">
+              <stop offset="0%" stop-color="#C8EAD8"/>
+              <stop offset="60%" stop-color="#88C9A8"/>
+              <stop offset="100%" stop-color="#5BAA80"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g1)"/>
+          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
+          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.22)"/>
+          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#5BAA80"/>
+          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#88C9A8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M46,122 Q50,126 54,122" stroke="#88C9A8" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div class="pop-burst">💚</div>
+        <div class="balloon-reveal" id="r1"></div>
+      </div>
+
+      <!-- Balloon 2: Lavender → "are" -->
+      <div class="balloon-wrap" id="b2" onclick="popBalloon('b2',1)">
+        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
+          <defs>
+            <radialGradient id="g2" cx="35%" cy="30%">
+              <stop offset="0%" stop-color="#D8D0F0"/>
+              <stop offset="60%" stop-color="#A898D8"/>
+              <stop offset="100%" stop-color="#7A68B8"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g2)"/>
+          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
+          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.2)"/>
+          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#7A68B8"/>
+          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#A898D8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M46,122 Q50,126 54,122" stroke="#A898D8" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div class="pop-burst">💜</div>
+        <div class="balloon-reveal" id="r2"></div>
+      </div>
+
+      <!-- Balloon 3: Blush pink → "my" -->
+      <div class="balloon-wrap" id="b3" onclick="popBalloon('b3',2)">
+        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
+          <defs>
+            <radialGradient id="g3" cx="35%" cy="30%">
+              <stop offset="0%" stop-color="#FAD8E0"/>
+              <stop offset="60%" stop-color="#F0A0B8"/>
+              <stop offset="100%" stop-color="#D87090"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g3)"/>
+          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
+          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.2)"/>
+          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#D87090"/>
+          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#F0A0B8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M46,122 Q50,126 54,122" stroke="#F0A0B8" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div class="pop-burst">🌸</div>
+        <div class="balloon-reveal" id="r3"></div>
+      </div>
+
+      <!-- Balloon 4: Sky blue → "hero" -->
+      <div class="balloon-wrap" id="b4" onclick="popBalloon('b4',3)">
+        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
+          <defs>
+            <radialGradient id="g4" cx="35%" cy="30%">
+              <stop offset="0%" stop-color="#C8E4F8"/>
+              <stop offset="60%" stop-color="#88C0E8"/>
+              <stop offset="100%" stop-color="#5098C8"/>
+            </radialGradient>
+          </defs>
+          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g4)"/>
+          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
+          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.2)"/>
+          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#5098C8"/>
+          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#88C0E8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M46,122 Q50,126 54,122" stroke="#88C0E8" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div class="pop-burst">💙</div>
+        <div class="balloon-reveal" id="r4"></div>
+      </div>
+    </div>
+
+    <div class="balloon-final" id="balloonFinal">
+      <div class="confetti-row">🎉 🕯️ 🎂 🎉</div>
+      <h3>You are my <em style="font-style:italic;color:var(--gold-deep)">Hero</em></h3>
+      <p>Thank you for being my greatest guide, my safe place,<br>and my favourite person, Dad. Happy Father's Day! 💛</p>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
+      <button class="nav-btn" onclick="showPage(4,document.querySelectorAll('nav button')[3])">Send a Gift →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PAGE 4: NOTE + PAYMENT ════════════ -->
+<section id="page4" class="page">
   <div class="section-header">
     <p class="section-eyebrow">A personal touch</p>
     <h2 class="section-title">Write Your <em>Note</em></h2>
@@ -603,121 +711,7 @@
     </div>
     <p class="discount-msg" id="discountMsg"></p>
     <button class="pay-btn" onclick="initiatePayment()">✦ &nbsp;Pay ₹<span id="payBtnAmt">99</span> with Razorpay</button>
-    <p class="pay-note">Secure payment · UPI, Cards, Net Banking<br>
-    <span style="font-size:0.62rem;opacity:0.7;">Codes: <strong>DAD20</strong> (20% off) · <strong>LOVE50</strong> (50% off) · <strong>FREE100</strong> (free)</span></p>
-  </div>
-</section>
-
-<!-- ════════════ PAGE 4: BALLOON POP ════════════ -->
-<section id="page4" class="page">
-  <div class="balloon-stage">
-    <div class="balloon-title-row">
-      <p>Pop all 4 balloons</p>
-      <div class="divider" style="margin:1rem auto;"></div>
-    </div>
-
-    <p class="balloon-counter" id="balloonCounter">0 / 4 popped</p>
-
-    <div class="balloon-grid">
-      <span class="word-you">You</span>
-      <span class="word-are">are</span>
-
-      <!-- Balloon 1: Mint green -->
-      <div class="balloon-wrap" id="b1" onclick="popBalloon('b1',0)">
-        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
-          <defs>
-            <radialGradient id="g1" cx="35%" cy="30%">
-              <stop offset="0%" stop-color="#C8EAD8"/>
-              <stop offset="60%" stop-color="#88C9A8"/>
-              <stop offset="100%" stop-color="#5BAA80"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g1)"/>
-          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
-          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.22)"/>
-          <!-- knot -->
-          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#5BAA80"/>
-          <!-- ribbon -->
-          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#88C9A8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M46,122 Q50,126 54,122" stroke="#88C9A8" stroke-width="1.2" fill="none"/>
-        </svg>
-        <div class="pop-burst">💚</div>
-        <div class="balloon-reveal" id="r1"></div>
-      </div>
-
-      <!-- Balloon 2: Lavender -->
-      <div class="balloon-wrap" id="b2" onclick="popBalloon('b2',1)">
-        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
-          <defs>
-            <radialGradient id="g2" cx="35%" cy="30%">
-              <stop offset="0%" stop-color="#D8D0F0"/>
-              <stop offset="60%" stop-color="#A898D8"/>
-              <stop offset="100%" stop-color="#7A68B8"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g2)"/>
-          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
-          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.2)"/>
-          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#7A68B8"/>
-          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#A898D8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M46,122 Q50,126 54,122" stroke="#A898D8" stroke-width="1.2" fill="none"/>
-        </svg>
-        <div class="pop-burst">💜</div>
-        <div class="balloon-reveal" id="r2"></div>
-      </div>
-
-      <!-- Balloon 3: Blush pink -->
-      <div class="balloon-wrap" id="b3" onclick="popBalloon('b3',2)">
-        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
-          <defs>
-            <radialGradient id="g3" cx="35%" cy="30%">
-              <stop offset="0%" stop-color="#FAD8E0"/>
-              <stop offset="60%" stop-color="#F0A0B8"/>
-              <stop offset="100%" stop-color="#D87090"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g3)"/>
-          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
-          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.2)"/>
-          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#D87090"/>
-          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#F0A0B8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M46,122 Q50,126 54,122" stroke="#F0A0B8" stroke-width="1.2" fill="none"/>
-        </svg>
-        <div class="pop-burst">🌸</div>
-        <div class="balloon-reveal" id="r3"></div>
-      </div>
-
-      <!-- Balloon 4: Sky blue -->
-      <div class="balloon-wrap" id="b4" onclick="popBalloon('b4',3)">
-        <svg class="balloon-svg" width="100" height="130" viewBox="0 0 100 130">
-          <defs>
-            <radialGradient id="g4" cx="35%" cy="30%">
-              <stop offset="0%" stop-color="#C8E4F8"/>
-              <stop offset="60%" stop-color="#88C0E8"/>
-              <stop offset="100%" stop-color="#5098C8"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="50" cy="52" rx="38" ry="46" fill="url(#g4)"/>
-          <ellipse cx="38" cy="36" rx="10" ry="13" fill="rgba(255,255,255,0.28)" transform="rotate(-20,38,36)"/>
-          <circle cx="44" cy="30" r="4" fill="rgba(255,255,255,0.2)"/>
-          <path d="M50,98 Q46,104 50,108 Q54,104 50,98Z" fill="#5098C8"/>
-          <path d="M50,108 Q44,116 46,122 M50,108 Q56,116 54,122" stroke="#88C0E8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M46,122 Q50,126 54,122" stroke="#88C0E8" stroke-width="1.2" fill="none"/>
-        </svg>
-        <div class="pop-burst">💙</div>
-        <div class="balloon-reveal" id="r4"></div>
-      </div>
-    </div>
-
-    <div class="balloon-final" id="balloonFinal">
-      <div class="confetti-row">🎉 🕯️ 🎂 🎉</div>
-      <h3>My <em style="font-style:italic;color:var(--gold-deep)">Hero</em></h3>
-      <p>Thank you for being my greatest guide, my safe place,<br>and my favourite person, Dad. Happy Father's Day! 💛</p>
-    </div>
-
-    <div style="text-align:center;margin-top:2rem;">
-      <button class="nav-btn" onclick="showPage(3,document.querySelectorAll('nav button')[2])">Send a Gift →</button>
-    </div>
+    <p class="pay-note">Secure payment · UPI, Cards, Net Banking</p>
   </div>
 </section>
 
@@ -755,7 +749,7 @@
 
 <script>
 /* ── Balloon reveal words ── */
-const balloonWords = ['My', 'Hero', 'Always', '💛'];
+const balloonWords = ['You', 'are', 'my', 'hero'];
 let poppedCount = 0;
 
 function popBalloon(id, idx) {
